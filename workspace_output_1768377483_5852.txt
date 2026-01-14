@@ -1,0 +1,20 @@
+.
+├── DEPLOYMENT.md
+├── README.md
+├── cloud-file-manager.zip
+├── index.html
+├── outputs
+│   ├── workspace_output_1768377377_2200.txt
+│   ├── workspace_output_1768377390_8298.txt
+│   ├── workspace_output_1768377408_5572.txt
+│   ├── workspace_output_1768377411_7804.txt
+│   ├── workspace_output_1768377432_4383.txt
+│   ├── workspace_output_1768377437_3925.txt
+│   ├── workspace_output_1768377477_563.txt
+│   ├── workspace_output_1768377480_7595.txt
+│   └── workspace_output_1768377483_5852.txt
+├── script.js
+├── styles.css
+└── todo.md
+
+2 directories, 16 files

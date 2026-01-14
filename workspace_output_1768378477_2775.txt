@@ -1,0 +1,17 @@
+function handleLogin(e) {
+    e.preventDefault();
+    const username = document.getElementById('username').value.trim().toLowerCase();
+    const password = document.getElementById('password').value;
+    
+    if (username === ADMIN_CREDENTIALS.username.toLowerCase() && password === ADMIN_CREDENTIALS.password) {
+        appState.isLoggedIn = true;
+        saveState();
+        showMainApp();
+        showToast('✅ Login successful! Welcome back.', 'success');
+    } else {
+        loginError.textContent = '❌ Invalid username or password';
+        showToast('❌ Login failed. Please check your credentials.', 'error');
+    }
+}
+
+// Handle Logout

@@ -1,0 +1,11 @@
+    isLoggedIn: false,
+    currentPath: "/",
+    selectedFiles: [],
+    clipboard: {
+        action: null,
+        files: []
+    },
+    files: {},
+    storageUsed: 0,
+    settings: {
+        publicAccess: true,

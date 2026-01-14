@@ -1,0 +1,6 @@
+  adding: index.html (deflated 78%)
+  adding: styles.css (deflated 80%)
+  adding: script.js (deflated 75%)
+  adding: README.md (deflated 56%)
+  adding: DEPLOYMENT.md (deflated 56%)
+  adding: todo.md (deflated 49%)

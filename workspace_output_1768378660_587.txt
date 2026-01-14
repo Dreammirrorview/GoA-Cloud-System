@@ -1,0 +1,9 @@
+-rw-r--r-- 1 root root 3.9K Jan 14 07:56 DEPLOYMENT.md
+-rw-r--r-- 1 root root 5.0K Jan 14 08:17 LOGIN-FIX.md
+-rw-r--r-- 1 root root 6.1K Jan 14 07:55 README.md
+-rw-r--r-- 1 root root  25K Jan 14 08:17 cloud-file-manager.zip
+-rw-r--r-- 1 root root  16K Jan 14 08:15 index.html
+-rw-r--r-- 1 root root 5.2K Jan 14 08:14 login-debug.html
+-rw-r--r-- 1 root root 8.4K Jan 14 08:16 test-credentials.html
+-rw-r--r-- 1 root root 3.1K Jan 14 08:13 test-login.html
+-rw-r--r-- 1 root root  930 Jan 14 07:57 todo.md

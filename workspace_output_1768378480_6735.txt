@@ -1,0 +1,6 @@
+        publicAccess: true,
+        googleIndex: true,
+        adsEnabled: false
+    }
+};
+

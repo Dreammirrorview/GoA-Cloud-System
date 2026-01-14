@@ -1,0 +1,15 @@
+// Cloud File Management System - Main JavaScript
+// Admin Credentials
+const ADMIN_CREDENTIALS = {
+    username: "olawale abdul-ganiyu",
+    password: "admin123"
+};
+
+// Application State
+let appState = {
+    isLoggedIn: false,
+    currentPath: "/",
+    selectedFiles: [],
+    clipboard: {
+        action: null,
+        files: []

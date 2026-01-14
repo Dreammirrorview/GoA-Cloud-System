@@ -1,0 +1,5 @@
+updating: index.html (deflated 78%)
+updating: script.js (deflated 76%)
+  adding: LOGIN-FIX.md (deflated 57%)
+  adding: test-credentials.html (deflated 77%)
+  adding: login-debug.html (deflated 69%)

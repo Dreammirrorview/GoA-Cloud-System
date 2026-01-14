@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Test</title>
+<script src="https://sites.super.myninja.ai/_assets/ninja-daytona-script.js"></script>
+</head>
+<body>
+    <h1>Login Test Page</h1>
+    <div id="result"></div>
+    
+    <script>
+        const ADMIN_CREDENTIALS = {
+            username: "olawale abdul-ganiyu",
+            password: "admin123"
+        };
+        
+        // Test 1: Exact match
+        const testUser1 = "olawale abdul-ganiyu";
+        const testPass1 = "admin123";
+        const result1 = testUser1.toLowerCase() === ADMIN_CREDENTIALS.username.toLowerCase() && testPass1 === ADMIN_CREDENTIALS.password;
+        
+        // Test 2: With spaces
+        const testUser2 = "  olawale abdul-ganiyu  ";
+        const testPass2 = "admin123";
+        const result2 = testUser2.trim().toLowerCase() === ADMIN_CREDENTIALS.username.toLowerCase() && testPass2 === ADMIN_CREDENTIALS.password;
+        
+        // Test 3: Different case
+        const testUser3 = "OLAWALE ABDUL-GANIYU";
+        const testPass3 = "admin123";
+        const result3 = testUser3.trim().toLowerCase() === ADMIN_CREDENTIALS.username.toLowerCase() && testPass3 === ADMIN_CREDENTIALS.password;
+        
+        // Test 4: Wrong password
+        const testUser4 = "olawale abdul-ganiyu";
+        const testPass4 = "wrongpass";
+        const result4 = testUser4.trim().toLowerCase() === ADMIN_CREDENTIALS.username.toLowerCase() && testPass4 === ADMIN_CREDENTIALS.password;
+        
+        // Test 5: Wrong username
+        const testUser5 = "wrong user";
+        const testPass5 = "admin123";
+        const result5 = testUser5.trim().toLowerCase() === ADMIN_CREDENTIALS.username.toLowerCase() && testPass5 === ADMIN_CREDENTIALS.password;
+        
+        const results = `
+            <h2>Test Results:</h2>
+            <p>Test 1 (Exact match): ${result1 ? '✅ PASS' : '❌ FAIL'}</p>
+            <p>Test 2 (With spaces): ${result2 ? '✅ PASS' : '❌ FAIL'}</p>
+            <p>Test 3 (Different case): ${result3 ? '✅ PASS' : '❌ FAIL'}</p>
+            <p>Test 4 (Wrong password): ${result4 ? '❌ FAIL (should be false)' : '✅ PASS (correctly false)'}</p>
+            <p>Test 5 (Wrong username): ${result5 ? '❌ FAIL (should be false)' : '✅ PASS (correctly false)'}</p>
+            
+            <h2>Admin Credentials:</h2>
+            <p>Username: "${ADMIN_CREDENTIALS.username}"</p>
+            <p>Password: "${ADMIN_CREDENTIALS.password}"</p>
+            
+            <h2>Test Inputs:</h2>
+            <p>Test 1 - Username: "${testUser1}", Password: "${testPass1}"</p>
+            <p>Test 2 - Username: "${testUser2}", Password: "${testPass2}"</p>
+            <p>Test 3 - Username: "${testUser3}", Password: "${testPass3}"</p>
+            <p>Test 4 - Username: "${testUser4}", Password: "${testPass4}"</p>
+            <p>Test 5 - Username: "${testUser5}", Password: "${testPass5}"</p>
+        `;
+        
+        document.getElementById('result').innerHTML = results;
+    </script>
+</body>
+</html>

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Debug</title>
+    <style>
+        body { font-family: monospace; padding: 20px; max-width: 800px; margin: 0 auto; }
+        .test { margin: 10px 0; padding: 10px; border: 1px solid #ccc; }
+        .pass { background: #d4edda; color: #155724; }
+        .fail { background: #f8d7da; color: #721c24; }
+        input, button { padding: 10px; margin: 5px; }
+        #console-output { background: #f8f9fa; padding: 15px; border: 1px solid #dee2e6; margin-top: 20px; }
+        .log { margin: 5px 0; }
+    </style>
+<script src="https://sites.super.myninja.ai/_assets/ninja-daytona-script.js"></script>
+</head>
+<body>
+    <h1>Login System Debug</h1>
+    
+    <div id="test-results"></div>
+    
+    <h2>Manual Test</h2>
+    <div>
+        <label>Username:</label>
+        <input type="text" id="testUsername" placeholder="olawale abdul-ganiyu">
+        <br>
+        <label>Password:</label>
+        <input type="password" id="testPassword" placeholder="admin123">
+        <br>
+        <button onclick="manualTest()">Test Login</button>
+    </div>
+    
+    <h2>Console Output</h2>
+    <div id="console-output"></div>
+    
+    <script>
+        // Admin Credentials
+        const ADMIN_CREDENTIALS = {
+            username: "olawale abdul-ganiyu",
+            password: "admin123"
+        };
+        
+        let logs = [];
+        
+        function log(message) {
+            logs.push(message);
+            const output = document.getElementById('console-output');
+            output.innerHTML = logs.map(l => `<div class="log">[${new Date().toLocaleTimeString()}] ${l}</div>`).join('');
+        }
+        
+        function testLogin(inputUsername, inputPassword) {
+            log(`Testing login with username: "${inputUsername}" and password length: ${inputPassword.length}`);
+            
+            const username = inputUsername.trim().toLowerCase();
+            const password = inputPassword;
+            
+            log(`Processed username: "${username}"`);
+            log(`Expected username: "${ADMIN_CREDENTIALS.username.toLowerCase()}"`);
+            log(`Username match: ${username === ADMIN_CREDENTIALS.username.toLowerCase()}`);
+            log(`Password match: ${password === ADMIN_CREDENTIALS.password}`);
+            
+            const result = username === ADMIN_CREDENTIALS.username.toLowerCase() && password === ADMIN_CREDENTIALS.password;
+            log(`Final result: ${result}`);
+            
+            return result;
+        }
+        
+        function runTests() {
+            const results = document.getElementById('test-results');
+            let html = '<h2>Automated Tests</h2>';
+            
+            // Test 1: Exact match
+            const test1 = testLogin("olawale abdul-ganiyu", "admin123");
+            html += `<div class="test ${test1 ? 'pass' : 'fail'}">Test 1 (Exact match): ${test1 ? 'PASS' : 'FAIL'}</div>`;
+            
+            // Test 2: With leading/trailing spaces
+            const test2 = testLogin("  olawale abdul-ganiyu  ", "admin123");
+            html += `<div class="test ${test2 ? 'pass' : 'fail'}">Test 2 (With spaces): ${test2 ? 'PASS' : 'FAIL'}</div>`;
+            
+            // Test 3: Different case
+            const test3 = testLogin("OLAWALE ABDUL-GANIYU", "admin123");
+            html += `<div class="test ${test3 ? 'pass' : 'fail'}">Test 3 (Uppercase): ${test3 ? 'PASS' : 'FAIL'}</div>`;
+            
+            // Test 4: Mixed case
+            const test4 = testLogin("Olawale Abdul-Ganiyu", "admin123");
+            html += `<div class="test ${test4 ? 'pass' : 'fail'}">Test 4 (Mixed case): ${test4 ? 'PASS' : 'FAIL'}</div>`;
+            
+            // Test 5: Wrong password
+            const test5 = testLogin("olawale abdul-ganiyu", "wrong");
+            html += `<div class="test ${!test5 ? 'pass' : 'fail'}">Test 5 (Wrong password): ${test5 ? 'FAIL (should be false)' : 'PASS (correctly false)'}</div>`;
+            
+            // Test 6: Wrong username
+            const test6 = testLogin("wrong user", "admin123");
+            html += `<div class="test ${!test6 ? 'pass' : 'fail'}">Test 6 (Wrong username): ${test6 ? 'FAIL (should be false)' : 'PASS (correctly false)'}</div>`;
+            
+            results.innerHTML = html;
+        }
+        
+        function manualTest() {
+            const username = document.getElementById('testUsername').value;
+            const password = document.getElementById('testPassword').value;
+            
+            log('--- Manual Test Started ---');
+            const result = testLogin(username, password);
+            log(`Manual test result: ${result ? 'SUCCESS' : 'FAILED'}`);
+            log('--- Manual Test Ended ---');
+            
+            alert(result ? '✅ Login Successful!' : '❌ Login Failed!');
+        }
+        
+        // Run automated tests on page load
+        window.onload = function() {
+            log('Login Debug Tool Loaded');
+            log(`Admin Username: "${ADMIN_CREDENTIALS.username}"`);
+            log(`Admin Password: "${ADMIN_CREDENTIALS.password}"`);
+            runTests();
+        };
+    </script>
+</body>
+</html>

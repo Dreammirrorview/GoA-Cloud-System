@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Cloud File Management System - Home or not">
+    <meta name="keywords" content="cloud storage, file manager, online editor, document viewer">
+    <meta name="author" content="Olawale Abdul-Ganiyu">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="Cloud File Management System">
+    <meta property="og:description" content="Advanced cloud storage and file management solution">
+    <meta property="og:type" content="website">
+    <title>Cloud File Management System</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+<script src="https://sites.super.myninja.ai/_assets/ninja-daytona-script.js"></script>
+</head>
+<body>
+    <!-- Cover Page / Login Screen -->
+    <div id="coverPage" class="cover-page">
+        <div class="login-container">
+            <h1>☁️ GoA Cloud File Manager</h1>
+            <p class="subtitle">Advanced Cloud Storage & File Management</p>
+            
+            <div class="login-form">
+                <h2>Admin Access Only</h2>
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <input type="text" id="username" placeholder="Enter username" required>
+                        <small style="color: #666; font-size: 12px;">Hint: olawale abdul-ganiyu</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" placeholder="Enter password" required>
+                        <small style="color: #666; font-size: 12px;">Hint: admin123</small>
+                    </div>
+                    <button type="submit" class="btn-primary">Login to Access</button>
+                </form>
+                <p id="loginError" class="error-message"></p>
+                <div style="margin-top: 15px; padding: 10px; background: #f8f9fa; border-radius: 5px; font-size: 12px;">
+                    <strong>Demo Credentials:</strong><br>
+                    Username: olawale abdul-ganiyu<br>
+                    Password: admin123
+                </div>
+            </div>
+            
+            <div class="features-preview">
+                <h3>Features</h3>
+                <ul>
+                    <li>📁 Upload & Download Files (Up to 1GB)</li>
+                    <li>🎬 Video & Audio Player</li>
+                    <li>📦 Zip File Extraction</li>
+                    <li>✏️ Code Editor (HTML, CSS, JS)</li>
+                    <li>📄 Document Viewer & Editor</li>
+                    <li>🔒 Secure Admin Access</li>
+                    <li>🌐 Custom Domain Support</li>
+                    <li>🔍 SEO Optimized</li>
+                </ul>
+                <div style="margin-top: 20px; padding: 15px; background: #e8f4f8; border-radius: 8px; border-left: 4px solid #4a90e2;">
+                    <strong>🔧 Debug Mode Active</strong><br>
+                    <small>Check browser console (F12) for login debugging information</small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Application -->
+    <div id="mainApp" class="main-app" style="display: none;">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="logo">
+                <h1>☁️ Cloud File Manager</h1>
+            </div>
+            <div class="header-controls">
+                <div class="domain-display">
+                    <span id="currentDomain">Loading...</span>
+                </div>
+                <div class="user-info">
+                    <span id="welcomeUser">Welcome, Admin</span>
+                </div>
+                <button id="logoutBtn" class="btn-secondary">Logout</button>
+            </div>
+        </header>
+
+        <!-- Navigation Tabs -->
+        <nav class="nav-tabs">
+            <button class="tab-btn active" data-tab="files">📁 Files</button>
+            <button class="tab-btn" data-tab="upload">⬆️ Upload</button>
+            <button class="tab-btn" data-tab="editor">✏️ Editor</button>
+            <button class="tab-btn" data-tab="viewer">👁️ Viewer</button>
+            <button class="tab-btn" data-tab="settings">⚙️ Settings</button>
+            <button class="tab-btn" data-tab="domain">🌐 Domain</button>
+        </nav>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- Files Tab -->
+            <section id="filesTab" class="tab-content active">
+                <div class="files-toolbar">
+                    <button id="newFolderBtn" class="btn-primary">📁 New Folder</button>
+                    <button id="refreshBtn" class="btn-secondary">🔄 Refresh</button>
+                    <button id="selectAllBtn" class="btn-secondary">☑️ Select All</button>
+                    <button id="deleteBtn" class="btn-danger">🗑️ Delete</button>
+                    <button id="copyBtn" class="btn-secondary">📋 Copy</button>
+                    <button id="pasteBtn" class="btn-secondary">📝 Paste</button>
+                    <button id="renameBtn" class="btn-secondary">✏️ Rename</button>
+                </div>
+                
+                <div class="breadcrumb">
+                    <span class="breadcrumb-item" data-path="/">🏠 Home</span>
+                </div>
+                
+                <div id="filesList" class="files-list">
+                    <div class="empty-state">
+                        <p>📂 No files yet. Upload files to get started!</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Upload Tab -->
+            <section id="uploadTab" class="tab-content">
+                <div class="upload-container">
+                    <div class="upload-zone" id="uploadZone">
+                        <div class="upload-icon">📤</div>
+                        <h2>Drag & Drop Files Here</h2>
+                        <p>or click to browse (Max 1GB per file)</p>
+                        <input type="file" id="fileInput" multiple style="display: none;">
+                        <button class="btn-primary" onclick="document.getElementById('fileInput').click()">Choose Files</button>
+                    </div>
+                    
+                    <div id="uploadProgress" class="upload-progress" style="display: none;">
+                        <h3>Upload Progress</h3>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="progressFill"></div>
+                        </div>
+                        <p id="progressText">0%</p>
+                    </div>
+                    
+                    <div class="upload-info">
+                        <h3>Supported File Types</h3>
+                        <ul>
+                            <li>📄 Documents: PDF, DOC, DOCX, TXT, RTF</li>
+                            <li>🎬 Videos: MP4, AVI, MOV, MKV, WEBM</li>
+                            <li>🎵 Audio: MP3, WAV, OGG, FLAC, AAC</li>
+                            <li>📦 Archives: ZIP, RAR, TAR, GZ</li>
+                            <li>💻 Code: HTML, CSS, JS, PHP, PY, JAVA</li>
+                            <li>🖼️ Images: JPG, PNG, GIF, SVG, WEBP</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Editor Tab -->
+            <section id="editorTab" class="tab-content">
+                <div class="editor-container">
+                    <div class="editor-toolbar">
+                        <select id="editorLanguage">
+                            <option value="html">HTML</option>
+                            <option value="css">CSS</option>
+                            <option value="javascript">JavaScript</option>
+                            <option value="text">Plain Text</option>
+                        </select>
+                        <button id="formatCodeBtn" class="btn-secondary">Format</button>
+                        <button id="saveEditorBtn" class="btn-primary">💾 Save</button>
+                        <button id="previewEditorBtn" class="btn-secondary">👁️ Preview</button>
+                    </div>
+                    <textarea id="codeEditor" class="code-editor" placeholder="Write or edit your code here..."></textarea>
+                    <div id="editorPreview" class="editor-preview" style="display: none;"></div>
+                </div>
+            </section>
+
+            <!-- Viewer Tab -->
+            <section id="viewerTab" class="tab-content">
+                <div class="viewer-container">
+                    <div class="viewer-controls">
+                        <select id="viewerFileSelect">
+                            <option value="">Select a file to view</option>
+                        </select>
+                        <button id="downloadViewedBtn" class="btn-secondary">⬇️ Download</button>
+                    </div>
+                    <div id="fileViewer" class="file-viewer">
+                        <div class="viewer-placeholder">
+                            <p>📄 Select a file to view its contents</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Settings Tab -->
+            <section id="settingsTab" class="tab-content">
+                <div class="settings-container">
+                    <h2>⚙️ System Settings</h2>
+                    
+                    <div class="settings-section">
+                        <h3>Storage Settings</h3>
+                        <div class="storage-info">
+                            <p>Used: <span id="storageUsed">0 MB</span> / 1 GB</p>
+                            <div class="storage-bar">
+                                <div class="storage-fill" id="storageFill"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="settings-section">
+                        <h3>Access Control</h3>
+                        <div class="toggle-setting">
+                            <label>
+                                <input type="checkbox" id="publicAccess" checked>
+                                <span>Public Access (Visible in Search Engines)</span>
+                            </label>
+                        </div>
+                        <div class="toggle-setting">
+                            <label>
+                                <input type="checkbox" id="googleIndex" checked>
+                                <span>Allow Google Indexing</span>
+                            </label>
+                        </div>
+                        <div class="toggle-setting">
+                            <label>
+                                <input type="checkbox" id="adsEnabled">
+                                <span>Enable AdSense</span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="settings-section">
+                        <h3>Google Integration</h3>
+                        <div class="form-group">
+                            <label>Google Analytics ID</label>
+                            <input type="text" id="gaId" placeholder="UA-XXXXXXXXX-X">
+                        </div>
+                        <div class="form-group">
+                            <label>Google Search Console Verification</label>
+                            <input type="text" id="gscVerify" placeholder="Verification code">
+                        </div>
+                    </div>
+                    
+                    <div class="settings-section">
+                        <h3>Security</h3>
+                        <div class="form-group">
+                            <label>Change Admin Password</label>
+                            <input type="password" id="newPassword" placeholder="New password">
+                        </div>
+                        <button class="btn-primary">Update Settings</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Domain Tab -->
+            <section id="domainTab" class="tab-content">
+                <div class="domain-container">
+                    <h2>🌐 Domain Configuration</h2>
+                    
+                    <div class="domain-info">
+                        <h3>Current Domain</h3>
+                        <p id="currentDomainDisplay">Loading...</p>
+                        <p class="domain-status">✅ Active</p>
+                    </div>
+                    
+                    <div class="domain-formats">
+                        <h3>Supported Domain Formats</h3>
+                        <ul class="domain-list">
+                            <li>✓ www.example.com</li>
+                            <li>✓ http://example.com</li>
+                            <li>✓ https://example.com</li>
+                            <li>✓ wwwe.example.com</li>
+                            <li>✓ wwws.example.com</li>
+                            <li>✓ Htps://example.com</li>
+                            <li>✓ htp://example.com</li>
+                            <li>✓ loc.example.com</li>
+                            <li>✓ example.com</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="domain-custom">
+                        <h3>Custom Domain</h3>
+                        <div class="form-group">
+                            <label>Domain Name</label>
+                            <input type="text" id="customDomain" placeholder="example.com">
+                        </div>
+                        <button class="btn-primary">Update Domain</button>
+                    </div>
+                    
+                    <div class="domain-seo">
+                        <h3>SEO Settings</h3>
+                        <div class="form-group">
+                            <label>Meta Title</label>
+                            <input type="text" id="metaTitle" value="Cloud File Management System">
+                        </div>
+                        <div class="form-group">
+                            <label>Meta Description</label>
+                            <textarea id="metaDesc">Advanced cloud storage and file management solution</textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Keywords</label>
+                            <input type="text" id="metaKeywords" value="cloud storage, file manager, online editor">
+                        </div>
+                        <button class="btn-primary">Save SEO Settings</button>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="app-footer">
+            <p>© 2024 Cloud File Manager | Powered by SuperNinja | Admin: Olawale Abdul-Ganiyu</p>
+            <p>Free License | Google Network Enabled | Secure & Private</p>
+        </footer>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div id="toast" class="toast"></div>
+
+    <!-- Modal Dialogs -->
+    <div id="modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="modal-close">&times;</span>
+            <h3 id="modalTitle">Modal Title</h3>
+            <div id="modalBody"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
